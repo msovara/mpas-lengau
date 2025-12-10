@@ -764,6 +764,13 @@ endif()
     export LD_LIBRARY_PATH=$(echo $LD_LIBRARY_PATH | tr ':' '\n' | grep -v 'intel.*vtune\|intel.*amplifier' | tr '\n' ':' | sed 's/:$//')
     export GIT_SSL_NO_VERIFY=1
     
+    # Ensure FETCHCONTENT_SOURCE_DIR_MPAS_DATA is set if MPAS-Data exists
+    # CMake FetchContent checks this environment variable automatically
+    if [ -d "${BUILD_DIR}/MPAS-Data" ] && [ -z "$FETCHCONTENT_SOURCE_DIR_MPAS_DATA" ]; then
+        export FETCHCONTENT_SOURCE_DIR_MPAS_DATA="${BUILD_DIR}/MPAS-Data"
+        echo "Set FETCHCONTENT_SOURCE_DIR_MPAS_DATA=${FETCHCONTENT_SOURCE_DIR_MPAS_DATA}"
+    fi
+    
     # Ensure CFLAGS/CXXFLAGS are not set (they may interfere with CMake compiler detection)
     # CMake will use the flags we specify via -DCMAKE_*_FLAGS, not environment variables
     unset CFLAGS
