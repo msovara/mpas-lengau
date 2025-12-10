@@ -131,6 +131,36 @@ echo $LD_LIBRARY_PATH | tr ':' '\n' | grep MPAS
 mpirun -np 1 mpas_atmosphere --help
 ```
 
+## Solution: MPAS May Require Configuration Files
+
+**Important**: Some MPAS builds require namelist and streams files even for `--help`. Try this:
+
+```bash
+# Create minimal test files
+mkdir -p ~/mpas_test && cd ~/mpas_test
+
+cat > namelist.atmosphere << 'EOF'
+&nhyd_model
+    config_dt = 300.0
+/
+EOF
+
+cat > streams.atmosphere << 'EOF'
+<streams>
+</streams>
+EOF
+
+# Load modules
+module purge
+module load chpc/parallel_studio_xe/16.0.1/2016.1.150
+module load chpc/earth/mpas-lengau
+
+# Try running
+mpirun -np 1 mpas_atmosphere -n namelist.atmosphere -s streams.atmosphere --help
+```
+
+If this works, MPAS requires configuration files even for help output.
+
 ## If All Else Fails
 
 1. **Reinstall MPAS** - The installation script has been updated to properly handle lib64
