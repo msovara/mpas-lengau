@@ -1,0 +1,268 @@
+# MPAS Usage Guide
+
+This guide explains how to use MPAS after installation on Lengau cluster.
+
+## Table of Contents
+
+- [Loading MPAS Environment](#loading-mpas-environment)
+- [Running MPAS](#running-mpas)
+- [Common Issues](#common-issues)
+- [Example Workflows](#example-workflows)
+
+## Loading MPAS Environment
+
+### Option 1: Module System
+
+```bash
+module load /mnt/lustre/users/msovara/SoftwareBuilds/MPAS/modulefiles/mpas-lengau
+```
+
+### Option 2: Setup Script
+
+```bash
+source /mnt/lustre/users/msovara/SoftwareBuilds/MPAS/setup_mpas_lengau.sh
+```
+
+### Verify Installation
+
+```bash
+# Check executable location
+which mpas_atmosphere
+
+# Should output:
+# /mnt/lustre/users/msovara/SoftwareBuilds/MPAS/bin/mpas_atmosphere
+```
+
+## Running MPAS
+
+### Important: MPAS Requires MPI
+
+**MPAS is an MPI application** and must be run with `mpirun` or `mpiexec`, even for help commands.
+
+### Getting Help
+
+```bash
+# ❌ This will fail with MPI_Abort error:
+mpas_atmosphere --help
+
+# ✅ Correct way:
+mpirun -np 1 mpas_atmosphere --help
+
+# Or:
+mpiexec -n 1 mpas_atmosphere --help
+```
+
+### Running MPAS Simulations
+
+#### Basic Run
+
+```bash
+# Single process (for testing)
+mpirun -np 1 mpas_atmosphere -n namelist.atmosphere -s streams.atmosphere
+
+# Multiple processes (recommended)
+mpirun -np 4 mpas_atmosphere -n namelist.atmosphere -s streams.atmosphere
+```
+
+#### PBS Job Script Example
+
+Create a file `run_mpas.pbs`:
+
+```bash
+#!/bin/bash
+#PBS -N mpas_run
+#PBS -l select=1:ncpus=24:mpiprocs=24
+#PBS -l walltime=02:00:00
+#PBS -q normal
+#PBS -o mpas.out
+#PBS -e mpas.err
+
+# Load modules
+module load chpc/parallel_studio_xe/16.0.1/2016.1.150
+module load /mnt/lustre/users/msovara/SoftwareBuilds/MPAS/modulefiles/mpas-lengau
+
+# Set working directory
+cd $PBS_O_WORKDIR
+
+# Run MPAS
+mpirun -np 24 mpas_atmosphere -n namelist.atmosphere -s streams.atmosphere
+```
+
+Submit job:
+```bash
+qsub run_mpas.pbs
+```
+
+#### Interactive Run
+
+```bash
+# Request interactive node
+qsub -I -l select=1:ncpus=4:mpiprocs=4 -l walltime=01:00:00 -q normal
+
+# Once on compute node, load environment and run
+module load chpc/parallel_studio_xe/16.0.1/2016.1.150
+module load /mnt/lustre/users/msovara/SoftwareBuilds/MPAS/modulefiles/mpas-lengau
+mpirun -np 4 mpas_atmosphere -n namelist.atmosphere -s streams.atmosphere
+```
+
+## Common Issues
+
+### Issue: MPI_Abort Error
+
+**Error:**
+```
+application called MPI_Abort(MPI_COMM_WORLD, 0) - process 0
+```
+
+**Cause:** MPAS is an MPI application and must be run with `mpirun` or `mpiexec`.
+
+**Solution:**
+```bash
+# Always use mpirun or mpiexec
+mpirun -np 1 mpas_atmosphere --help
+mpirun -np 1 mpas_atmosphere -n namelist.atmosphere -s streams.atmosphere
+```
+
+### Issue: Executable Not Found
+
+**Error:**
+```
+mpas_atmosphere: command not found
+```
+
+**Solution:**
+1. Load MPAS module:
+   ```bash
+   module load /mnt/lustre/users/msovara/SoftwareBuilds/MPAS/modulefiles/mpas-lengau
+   ```
+
+2. Or source setup script:
+   ```bash
+   source /mnt/lustre/users/msovara/SoftwareBuilds/MPAS/setup_mpas_lengau.sh
+   ```
+
+3. Verify:
+   ```bash
+   which mpas_atmosphere
+   ```
+
+### Issue: Library Not Found
+
+**Error:**
+```
+error while loading shared libraries: libmpas_framework.so: cannot open shared object file
+```
+
+**Solution:**
+1. Ensure MPAS module is loaded
+2. Check LD_LIBRARY_PATH:
+   ```bash
+   echo $LD_LIBRARY_PATH | grep MPAS
+   ```
+
+3. Manually add if needed:
+   ```bash
+   export LD_LIBRARY_PATH=/mnt/lustre/users/msovara/SoftwareBuilds/MPAS/lib64:$LD_LIBRARY_PATH
+   ```
+
+### Issue: MPI Not Found
+
+**Error:**
+```
+mpirun: command not found
+```
+
+**Solution:**
+```bash
+# Load Intel MPI
+module load chpc/parallel_studio_xe/16.0.1/2016.1.150
+
+# Verify
+which mpirun
+```
+
+## Example Workflows
+
+### Workflow 1: Quick Test
+
+```bash
+# Load environment
+module load chpc/parallel_studio_xe/16.0.1/2016.1.150
+module load /mnt/lustre/users/msovara/SoftwareBuilds/MPAS/modulefiles/mpas-lengau
+
+# Test executable
+mpirun -np 1 mpas_atmosphere --help
+
+# Run with test configuration
+mpirun -np 1 mpas_atmosphere -n namelist.atmosphere -s streams.atmosphere
+```
+
+### Workflow 2: Production Run
+
+```bash
+# Create PBS script (see example above)
+# Submit job
+qsub run_mpas.pbs
+
+# Monitor job
+qstat -u msovara
+
+# Check output
+tail -f mpas.out
+```
+
+### Workflow 3: Debugging
+
+```bash
+# Request interactive node
+qsub -I -l select=1:ncpus=4:mpiprocs=4 -l walltime=01:00:00
+
+# Load environment
+module load chpc/parallel_studio_xe/16.0.1/2016.1.150
+module load /mnt/lustre/users/msovara/SoftwareBuilds/MPAS/modulefiles/mpas-lengau
+
+# Run with verbose output
+mpirun -np 4 -verbose mpas_atmosphere -n namelist.atmosphere -s streams.atmosphere
+```
+
+## MPAS Command Line Options
+
+```bash
+mpirun -np 1 mpas_atmosphere --help
+```
+
+Common options:
+- `-n <file>`: Namelist file (required)
+- `-s <file>`: Streams file (required)
+- `--help`: Show help message
+- `--version`: Show version (if available)
+
+## Environment Variables
+
+After loading MPAS module:
+
+- `MPAS_ROOT`: Installation root directory
+- `PATH`: Includes `$MPAS_ROOT/bin`
+- `LD_LIBRARY_PATH`: Includes MPAS libraries
+- `NETCDF`: NetCDF root directory
+- `HDF5_ROOT`: HDF5 root directory
+
+## Best Practices
+
+1. **Always use mpirun/mpiexec**: Even for help/version commands
+2. **Load modules in order**: Intel MPI first, then MPAS
+3. **Use PBS for production runs**: Better resource management
+4. **Check output files**: Monitor `.out` and `.err` files
+5. **Test with single process first**: Before running large jobs
+
+## Getting Help
+
+- Check installation log: `/mnt/lustre/users/msovara/SoftwareBuilds/MPAS/install_log.txt`
+- See troubleshooting guide: `docs/TROUBLESHOOTING.md`
+- MPAS documentation: https://mpas-dev.github.io/
+- CHPC support: For cluster-specific issues
+
+---
+
+**Last Updated**: December 2024
+

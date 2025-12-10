@@ -304,16 +304,20 @@ source /mnt/lustre/users/msovara/SoftwareBuilds/MPAS/setup_mpas_lengau.sh
 
 ### Running MPAS
 
+**Important**: MPAS is an MPI application and must be run with `mpirun` or `mpiexec`, even for help commands.
+
 ```bash
 # Check executable
 which mpas_atmosphere
 
-# Run with help
-mpas_atmosphere --help
+# Get help (must use mpirun)
+mpirun -np 1 mpas_atmosphere --help
 
 # Example run (adjust paths as needed)
-mpas_atmosphere -n namelist.atmosphere -s streams.atmosphere
+mpirun -np 4 mpas_atmosphere -n namelist.atmosphere -s streams.atmosphere
 ```
+
+**Note**: See [docs/USAGE.md](docs/USAGE.md) for detailed usage instructions and examples.
 
 ### Environment Variables
 
