@@ -114,14 +114,107 @@ mpirun -np 4 mpas_atmosphere -n namelist.atmosphere -s streams.atmosphere
 application called MPI_Abort(MPI_COMM_WORLD, 0) - process 0
 ```
 
-**Cause:** MPAS is an MPI application and must be run with `mpirun` or `mpiexec`.
+**Causes and Solutions:**
+
+#### Cause 1: Missing Namelist/Streams Files
+
+**Error:**
+```
+mpirun -np 4 mpas_atmosphere -n namelist.atmosphere -s streams.atmosphere
+application called MPI_Abort(MPI_COMM_WORLD, 0) - process 0
+```
+
+**Solution:**
+1. Check if files exist:
+   ```bash
+   ls -la namelist.atmosphere streams.atmosphere
+   ```
+
+2. Find example files:
+   ```bash
+   find /mnt/lustre/users/msovara/SoftwareBuilds/MPAS -name "namelist.atmosphere" -o -name "streams.atmosphere"
+   ```
+
+3. Copy example files from MPAS installation:
+   ```bash
+   # Example files are usually in:
+   cp /mnt/lustre/users/msovara/SoftwareBuilds/MPAS/share/MPAS/core_atmosphere/namelist.atmosphere .
+   cp /mnt/lustre/users/msovara/SoftwareBuilds/MPAS/share/MPAS/core_atmosphere/streams.atmosphere .
+   ```
+
+4. Or download from MPAS repository:
+   ```bash
+   # On DTN node
+   wget https://raw.githubusercontent.com/MPAS-Dev/MPAS-Model/develop/src/core_atmosphere/namelist.atmosphere
+   wget https://raw.githubusercontent.com/MPAS-Dev/MPAS-Model/develop/src/core_atmosphere/streams.atmosphere
+   ```
+
+#### Cause 2: Incorrect File Paths
 
 **Solution:**
 ```bash
-# Always use mpirun or mpiexec
-mpirun -np 1 mpas_atmosphere --help
-mpirun -np 1 mpas_atmosphere -n namelist.atmosphere -s streams.atmosphere
+# Use absolute paths or ensure files are in current directory
+mpirun -np 1 mpas_atmosphere -n /full/path/to/namelist.atmosphere -s /full/path/to/streams.atmosphere
 ```
+
+#### Cause 3: Missing Input Data
+
+**Solution:**
+- Ensure input data files specified in namelist/streams exist
+- Check file paths in namelist.atmosphere
+- Verify data files are accessible
+
+#### Cause 4: MPI Environment Issues
+
+**Solution:**
+```bash
+# Load Intel MPI first
+module load chpc/parallel_studio_xe/16.0.1/2016.1.150
+
+# Then load MPAS
+module load /mnt/lustre/users/msovara/SoftwareBuilds/MPAS/modulefiles/mpas-lengau
+
+# Test MPI
+mpirun -np 1 hostname
+
+# Test MPAS help
+mpirun -np 1 mpas_atmosphere --help
+```
+
+#### Cause 5: Library Path Issues
+
+**Solution:**
+```bash
+# Check library path
+echo $LD_LIBRARY_PATH | grep MPAS
+
+# If missing, add manually
+export LD_LIBRARY_PATH=/mnt/lustre/users/msovara/SoftwareBuilds/MPAS/lib64:$LD_LIBRARY_PATH
+```
+
+#### Debugging Steps
+
+1. **Test with help first:**
+   ```bash
+   mpirun -np 1 mpas_atmosphere --help
+   ```
+   If this works, the issue is with namelist/streams files.
+
+2. **Check file permissions:**
+   ```bash
+   ls -la namelist.atmosphere streams.atmosphere
+   chmod 644 namelist.atmosphere streams.atmosphere
+   ```
+
+3. **Run with verbose output:**
+   ```bash
+   mpirun -np 1 -verbose mpas_atmosphere -n namelist.atmosphere -s streams.atmosphere
+   ```
+
+4. **Check for error messages:**
+   - Look for specific error messages before MPI_Abort
+   - Check stderr output
+   - Review MPAS log files if created
 
 ### Issue: Executable Not Found
 
