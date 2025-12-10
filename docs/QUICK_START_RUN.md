@@ -28,7 +28,7 @@ cp $MPAS_ROOT/share/MPAS/core_atmosphere/streams.atmosphere .
 
 **On DTN node (has internet):**
 ```bash
-cd /home/apps/chpc/earth
+cd /home/apps/chpc/earth/MPAS-8.3.1
 mkdir -p mpas_run
 cd mpas_run
 
@@ -171,7 +171,7 @@ tail -f mpas.out
 echo $LD_LIBRARY_PATH
 
 # Add if missing
-export LD_LIBRARY_PATH=/home/apps/chpc/earth/lib64:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/home/apps/chpc/earth/MPAS-8.3.1/lib64:$LD_LIBRARY_PATH
 ```
 
 ## Next Steps

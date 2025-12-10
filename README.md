@@ -79,7 +79,7 @@ cd mpas-lengau
 ssh msovara@dtn.chpc.ac.za
 
 # Navigate to your workspace
-cd /home/apps/chpc/earth
+cd /home/apps/chpc/earth/MPAS-8.3.1
 
 # Copy scripts from repository
 cp ~/mpas-lengau/download_mpas_source.sh .
@@ -99,7 +99,7 @@ chmod +x download_mpas_source.sh install_mpas_lengau.sh
 ssh msovara@cnode0025.chpc.ac.za
 
 # Navigate to workspace
-cd /home/apps/chpc/earth
+cd /home/apps/chpc/earth/MPAS-8.3.1
 
 # Run installation
 ./install_mpas_lengau.sh
@@ -145,7 +145,7 @@ The `download_mpas_source.sh` script:
 
 ```bash
 ssh msovara@dtn.chpc.ac.za
-cd /home/apps/chpc/earth
+cd /home/apps/chpc/earth/MPAS-8.3.1
 ./download_mpas_source.sh
 ```
 
@@ -179,7 +179,7 @@ The `install_mpas_lengau.sh` script:
 
 ```bash
 ssh msovara@cnode0025.chpc.ac.za
-cd /home/apps/chpc/earth
+cd /home/apps/chpc/earth/MPAS-8.3.1
 ./install_mpas_lengau.sh
 ```
 

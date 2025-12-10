@@ -8,7 +8,7 @@
 set -e  # Exit on any error
 
 # Configuration
-INSTALL_DIR="/home/apps/chpc/earth"
+INSTALL_DIR="/home/apps/chpc/earth/MPAS-8.3.1"
 BUILD_DIR="${INSTALL_DIR}/build"
 MODULE_DIR="/apps/chpc/scripts/modules/earth"
 MPAS_VERSION="v8.3.1"  # Latest version as of 2025. Update to desired version if needed

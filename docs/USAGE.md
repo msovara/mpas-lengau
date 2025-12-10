@@ -20,7 +20,7 @@ module load chpc/earth/mpas-lengau
 ### Option 2: Setup Script
 
 ```bash
-source /home/apps/chpc/earth/setup_mpas_lengau.sh
+source /home/apps/chpc/earth/MPAS-8.3.1/setup_mpas_lengau.sh
 ```
 
 ### Verify Installation
@@ -30,7 +30,7 @@ source /home/apps/chpc/earth/setup_mpas_lengau.sh
 which mpas_atmosphere
 
 # Should output:
-# /home/apps/chpc/earth/bin/mpas_atmosphere
+# /home/apps/chpc/earth/MPAS-8.3.1/bin/mpas_atmosphere
 ```
 
 ## Running MPAS
@@ -132,14 +132,14 @@ application called MPI_Abort(MPI_COMM_WORLD, 0) - process 0
 
 2. Find example files:
    ```bash
-   find /home/apps/chpc/earth -name "namelist.atmosphere" -o -name "streams.atmosphere"
+   find /home/apps/chpc/earth/MPAS-8.3.1 -name "namelist.atmosphere" -o -name "streams.atmosphere"
    ```
 
 3. Copy example files from MPAS installation:
    ```bash
    # Example files are usually in:
-   cp /home/apps/chpc/earth/share/MPAS/core_atmosphere/namelist.atmosphere .
-   cp /home/apps/chpc/earth/share/MPAS/core_atmosphere/streams.atmosphere .
+   cp /home/apps/chpc/earth/MPAS-8.3.1/share/MPAS/core_atmosphere/namelist.atmosphere .
+   cp /home/apps/chpc/earth/MPAS-8.3.1/share/MPAS/core_atmosphere/streams.atmosphere .
    ```
 
 4. Or download from MPAS repository:
@@ -189,7 +189,7 @@ mpirun -np 1 mpas_atmosphere --help
 echo $LD_LIBRARY_PATH | grep MPAS
 
 # If missing, add manually
-export LD_LIBRARY_PATH=/home/apps/chpc/earth/lib64:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/home/apps/chpc/earth/MPAS-8.3.1/lib64:$LD_LIBRARY_PATH
 ```
 
 #### Debugging Steps
@@ -231,7 +231,7 @@ mpas_atmosphere: command not found
 
 2. Or source setup script:
    ```bash
-   source /home/apps/chpc/earth/setup_mpas_lengau.sh
+   source /home/apps/chpc/earth/MPAS-8.3.1/setup_mpas_lengau.sh
    ```
 
 3. Verify:
@@ -255,7 +255,7 @@ error while loading shared libraries: libmpas_framework.so: cannot open shared o
 
 3. Manually add if needed:
    ```bash
-   export LD_LIBRARY_PATH=/home/apps/chpc/earth/lib64:$LD_LIBRARY_PATH
+   export LD_LIBRARY_PATH=/home/apps/chpc/earth/MPAS-8.3.1/lib64:$LD_LIBRARY_PATH
    ```
 
 ### Issue: MPI Not Found
@@ -350,7 +350,7 @@ After loading MPAS module:
 
 ## Getting Help
 
-- Check installation log: `/home/apps/chpc/earth/install_log.txt`
+- Check installation log: `/home/apps/chpc/earth/MPAS-8.3.1/install_log.txt`
 - See troubleshooting guide: `docs/TROUBLESHOOTING.md`
 - MPAS documentation: https://mpas-dev.github.io/
 - CHPC support: For cluster-specific issues

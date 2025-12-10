@@ -44,7 +44,7 @@ MPAS might check for specific environment variables. Try:
 
 ```bash
 # Set common MPAS environment variables
-export MPAS_ROOT=/home/apps/chpc/earth
+export MPAS_ROOT=/home/apps/chpc/earth/MPAS-8.3.1
 export MPAS_CORE=atmosphere
 
 # Try again
@@ -56,7 +56,7 @@ mpirun -np 1 mpas_atmosphere --help
 Try setting library path explicitly:
 
 ```bash
-export LD_LIBRARY_PATH=/home/apps/chpc/earth/lib64:/home/apps/chpc/earth/build/MPAS-Model/build_cmake/lib:/apps/compilers/intel/parallel_studio_xe_2016/compilers_and_libraries/linux/lib/intel64:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/home/apps/chpc/earth/MPAS-8.3.1/lib64:/home/apps/chpc/earth/MPAS-8.3.1/build/MPAS-Model/build_cmake/lib:/apps/compilers/intel/parallel_studio_xe_2016/compilers_and_libraries/linux/lib/intel64:$LD_LIBRARY_PATH
 
 mpirun -np 1 mpas_atmosphere --help
 ```
@@ -66,7 +66,7 @@ mpirun -np 1 mpas_atmosphere --help
 The installed executable might have issues. Try running directly from build:
 
 ```bash
-cd /home/apps/chpc/earth/build/MPAS-Model/build_cmake
+cd /home/apps/chpc/earth/MPAS-8.3.1/build/MPAS-Model/build_cmake
 export LD_LIBRARY_PATH=./lib:$LD_LIBRARY_PATH
 mpirun -np 1 ./bin/mpas_atmosphere --help
 ```
@@ -77,7 +77,7 @@ The executable might be configured to require certain files. Check:
 
 ```bash
 # Check what MPAS expects
-strings /home/apps/chpc/earth/bin/mpas_atmosphere | grep -i 'namelist\|streams\|required\|error' | head -20
+strings /home/apps/chpc/earth/MPAS-8.3.1/bin/mpas_atmosphere | grep -i 'namelist\|streams\|required\|error' | head -20
 ```
 
 ### 6. Try with Minimal Namelist
@@ -106,8 +106,8 @@ If the installed version has issues, you can use the build directory directly:
 # Create alias or script
 cat > ~/run_mpas.sh << 'EOF'
 #!/bin/bash
-cd /home/apps/chpc/earth/build/MPAS-Model/build_cmake
-export LD_LIBRARY_PATH=./lib:/home/apps/chpc/earth/lib64:/apps/compilers/intel/parallel_studio_xe_2016/compilers_and_libraries/linux/lib/intel64:$LD_LIBRARY_PATH
+cd /home/apps/chpc/earth/MPAS-8.3.1/build/MPAS-Model/build_cmake
+export LD_LIBRARY_PATH=./lib:/home/apps/chpc/earth/MPAS-8.3.1/lib64:/apps/compilers/intel/parallel_studio_xe_2016/compilers_and_libraries/linux/lib/intel64:$LD_LIBRARY_PATH
 module load chpc/parallel_studio_xe/16.0.1/2016.1.150
 mpirun -np $1 ./bin/mpas_atmosphere "${@:2}"
 EOF

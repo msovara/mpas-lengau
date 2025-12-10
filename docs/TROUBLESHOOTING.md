@@ -33,8 +33,8 @@ No space left on device
 ```
 
 **Solutions:**
-1. Check available space: `df -h /home/apps/chpc/earth`
-2. Clean up old builds: `rm -rf /home/apps/chpc/earth/build/build_*`
+1. Check available space: `df -h /home/apps/chpc/earth/MPAS-8.3.1`
+2. Clean up old builds: `rm -rf /home/apps/chpc/earth/MPAS-8.3.1/build/build_*`
 3. Request quota increase from CHPC
 
 ## Download Issues
@@ -76,7 +76,7 @@ CMake Error: file INSTALL cannot find MPAS-Data/atmosphere/physics_wrf/files
 
 **Solutions:**
 1. Ensure `download_mpas_source.sh` cloned MPAS-Data
-2. Verify location: `ls -la /home/apps/chpc/earth/build/MPAS-Data`
+2. Verify location: `ls -la /home/apps/chpc/earth/MPAS-8.3.1/build/MPAS-Data`
 3. Re-run download script if missing
 
 ## Compilation Issues
@@ -241,15 +241,15 @@ mpas_atmosphere: command not found
 **Solutions:**
 1. Load MPAS module:
    ```bash
-   module load /home/apps/chpc/earth/modulefiles/mpas-lengau
+   module load /home/apps/chpc/earth/MPAS-8.3.1/modulefiles/mpas-lengau
    ```
 2. Or source setup script:
    ```bash
-   source /home/apps/chpc/earth/setup_mpas_lengau.sh
+   source /home/apps/chpc/earth/MPAS-8.3.1/setup_mpas_lengau.sh
    ```
 3. Check installation:
    ```bash
-   ls -la /home/apps/chpc/earth/bin/mpas_atmosphere
+   ls -la /home/apps/chpc/earth/MPAS-8.3.1/bin/mpas_atmosphere
    ```
 
 ### Issue: Permission Denied
@@ -262,7 +262,7 @@ Permission denied: mpas_atmosphere
 **Solutions:**
 1. Check permissions:
    ```bash
-   chmod +x /home/apps/chpc/earth/bin/mpas_atmosphere
+   chmod +x /home/apps/chpc/earth/MPAS-8.3.1/bin/mpas_atmosphere
    ```
 2. Verify file ownership
 
@@ -278,12 +278,12 @@ module: ERROR:105: Unable to locate a modulefile
 **Solutions:**
 1. Check module file exists:
    ```bash
-   ls -la /home/apps/chpc/earth/modulefiles/mpas-lengau
+   ls -la /home/apps/chpc/earth/MPAS-8.3.1/modulefiles/mpas-lengau
    ```
 2. Re-run installation script to regenerate module file
 3. Use setup script instead:
    ```bash
-   source /home/apps/chpc/earth/setup_mpas_lengau.sh
+   source /home/apps/chpc/earth/MPAS-8.3.1/setup_mpas_lengau.sh
    ```
 
 ### Issue: Module Conflicts
@@ -298,7 +298,7 @@ module: ERROR:102: Tcl command execution failed
    ```bash
    module purge
    module load chpc/parallel_studio_xe/16.0.1/2016.1.150
-   module load /home/apps/chpc/earth/modulefiles/mpas-lengau
+   module load /home/apps/chpc/earth/MPAS-8.3.1/modulefiles/mpas-lengau
    ```
 
 ## Getting Help
@@ -307,7 +307,7 @@ If issues persist:
 
 1. Check installation log:
    ```bash
-   cat /home/apps/chpc/earth/install_log.txt
+   cat /home/apps/chpc/earth/MPAS-8.3.1/install_log.txt
    ```
 
 2. Enable debug mode:
