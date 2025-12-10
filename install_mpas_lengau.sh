@@ -38,7 +38,7 @@ if [ ! -d "${BUILD_DIR}/MPAS-Model" ]; then
     echo ""
     echo "To download source code:"
     echo "1. SSH to DTN node: ssh msovara@dtn.chpc.ac.za"
-    echo "2. Run: cd /home/apps/chpc/earth"
+    echo "2. Run: cd /home/apps/chpc/earth/MPAS-8.3.1"
     echo "3. Run: ./download_mpas_source.sh"
     echo "4. Then return to compute node and run this installation script"
     echo ""
