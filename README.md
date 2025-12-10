@@ -192,7 +192,7 @@ cd /home/apps/chpc/earth/MPAS-8.3.1
 Edit `install_mpas_lengau.sh`:
 
 ```bash
-INSTALL_DIR="/home/apps/chpc/earth"
+INSTALL_DIR="/home/apps/chpc/earth/MPAS-8.3.1"
 BUILD_DIR="${INSTALL_DIR}/build"
 ```
 
