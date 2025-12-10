@@ -27,7 +27,7 @@ Or manually add lib64:
 
 ```bash
 # After loading module, add lib64
-module load /apps/chpc/scripts/modules/earth/mpas-lengau
+module load chpc/earth/mpas-lengau
 export LD_LIBRARY_PATH=/home/apps/chpc/earth/lib64:$LD_LIBRARY_PATH
 ```
 

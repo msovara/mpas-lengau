@@ -28,7 +28,7 @@ cp $MPAS_ROOT/share/MPAS/core_atmosphere/streams.atmosphere .
 
 **On DTN node (has internet):**
 ```bash
-cd /mnt/lustre/users/msovara/SoftwareBuilds
+cd /home/apps/chpc/earth
 mkdir -p mpas_run
 cd mpas_run
 

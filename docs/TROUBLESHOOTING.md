@@ -33,7 +33,7 @@ No space left on device
 ```
 
 **Solutions:**
-1. Check available space: `df -h /mnt/lustre/users/msovara`
+1. Check available space: `df -h /home/apps/chpc/earth`
 2. Clean up old builds: `rm -rf /home/apps/chpc/earth/build/build_*`
 3. Request quota increase from CHPC
 

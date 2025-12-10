@@ -79,7 +79,7 @@ cd mpas-lengau
 ssh msovara@dtn.chpc.ac.za
 
 # Navigate to your workspace
-cd /mnt/lustre/users/msovara/SoftwareBuilds
+cd /home/apps/chpc/earth
 
 # Copy scripts from repository
 cp ~/mpas-lengau/download_mpas_source.sh .
@@ -99,7 +99,7 @@ chmod +x download_mpas_source.sh install_mpas_lengau.sh
 ssh msovara@cnode0025.chpc.ac.za
 
 # Navigate to workspace
-cd /mnt/lustre/users/msovara/SoftwareBuilds
+cd /home/apps/chpc/earth
 
 # Run installation
 ./install_mpas_lengau.sh
@@ -129,7 +129,7 @@ source /home/apps/chpc/earth/setup_mpas_lengau.sh
 git clone https://github.com/msovara/mpas-lengau.git
 
 # Transfer to cluster
-scp -r mpas-lengau msovara@lengau.chpc.ac.za:/mnt/lustre/users/msovara/
+scp -r mpas-lengau msovara@lengau.chpc.ac.za:/home/apps/chpc/
 ```
 
 #### Step 2: Download Source Code (DTN Node)
@@ -145,7 +145,7 @@ The `download_mpas_source.sh` script:
 
 ```bash
 ssh msovara@dtn.chpc.ac.za
-cd /mnt/lustre/users/msovara/SoftwareBuilds
+cd /home/apps/chpc/earth
 ./download_mpas_source.sh
 ```
 
@@ -179,7 +179,7 @@ The `install_mpas_lengau.sh` script:
 
 ```bash
 ssh msovara@cnode0025.chpc.ac.za
-cd /mnt/lustre/users/msovara/SoftwareBuilds
+cd /home/apps/chpc/earth
 ./install_mpas_lengau.sh
 ```
 
@@ -285,7 +285,7 @@ bash -x install_mpas_lengau.sh
 ### Check Installation Log
 
 ```bash
-cat /mnt/lustre/users/msovara/SoftwareBuilds/MPAS/install_log.txt
+cat /home/apps/chpc/earth/install_log.txt
 ```
 
 ## 💻 Usage
