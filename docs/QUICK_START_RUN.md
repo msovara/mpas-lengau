@@ -2,6 +2,18 @@
 
 This guide helps you run your first MPAS simulation after installation.
 
+## Table of Contents
+
+- [Prerequisites](#prerequisites)
+- [Step 1: Get Example Configuration Files](#step-1-get-example-configuration-files)
+- [Step 2: Verify Files](#step-2-verify-files)
+- [Step 3: Load Environment](#step-3-load-environment)
+- [Step 4: Test Run](#step-4-test-run)
+- [Step 5: Submit as PBS Job](#step-5-submit-as-pbs-job)
+- [Troubleshooting](#troubleshooting)
+- [Next Steps](#next-steps)
+- [Resources](#resources)
+
 ## Prerequisites
 
 - MPAS installed (see main README.md)

@@ -5,9 +5,26 @@ This guide explains how to use MPAS after installation on Lengau cluster.
 ## Table of Contents
 
 - [Loading MPAS Environment](#loading-mpas-environment)
+  - [Option 1: Module System](#option-1-module-system)
+  - [Option 2: Setup Script](#option-2-setup-script)
+  - [Verify Installation](#verify-installation)
 - [Running MPAS](#running-mpas)
+  - [Important: MPAS Requires MPI](#important-mpas-requires-mpi)
+  - [Getting Help](#getting-help)
+  - [Running MPAS Simulations](#running-mpas-simulations)
 - [Common Issues](#common-issues)
+  - [Issue: MPI_Abort Error](#issue-mpi_abort-error)
+  - [Issue: Executable Not Found](#issue-executable-not-found)
+  - [Issue: Library Not Found](#issue-library-not-found)
+  - [Issue: MPI Not Found](#issue-mpi-not-found)
 - [Example Workflows](#example-workflows)
+  - [Workflow 1: Quick Test](#workflow-1-quick-test)
+  - [Workflow 2: Production Run](#workflow-2-production-run)
+  - [Workflow 3: Debugging](#workflow-3-debugging)
+- [MPAS Command Line Options](#mpas-command-line-options)
+- [Environment Variables](#environment-variables)
+- [Best Practices](#best-practices)
+- [Getting Help](#getting-help)
 
 ## Loading MPAS Environment
 

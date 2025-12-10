@@ -7,9 +7,21 @@ This guide provides a comprehensive configuration template for running MPAS-Atmo
 - [Quick Setup](#quick-setup)
 - [Directory Structure](#directory-structure)
 - [Configuration Files](#configuration-files)
+  - [Namelist.atmosphere Template](#namelistatmosphere-template)
+  - [Streams.atmosphere Template](#streamsatmosphere-template)
 - [Input Data](#input-data)
+  - [Required Input Files](#required-input-files)
+  - [Getting Input Data](#getting-input-data)
 - [Example Templates](#example-templates)
+  - [Complete Example: Basic Simulation](#complete-example-basic-simulation)
 - [Running Simulations](#running-simulations)
+  - [PBS Job Script Template](#pbs-job-script-template)
+  - [Interactive Run](#interactive-run)
+- [Resources](#resources)
+  - [Official MPAS Resources](#official-mpas-resources)
+  - [Example Configurations](#example-configurations)
+  - [Getting Help](#getting-help)
+- [Next Steps](#next-steps)
 
 ## Quick Setup
 
@@ -60,7 +72,7 @@ Recommended directory structure for MPAS simulations:
 
 ## Configuration Files
 
-### 1. Namelist.atmosphere Template
+### Namelist.atmosphere Template
 
 Create `namelist.atmosphere` with the following structure:
 
@@ -123,7 +135,7 @@ Create `namelist.atmosphere` with the following structure:
 /
 ```
 
-### 2. Streams.atmosphere Template
+### Streams.atmosphere Template
 
 Create `streams.atmosphere` with the following structure:
 
