@@ -9,7 +9,7 @@ The MPAS module file is setting `LD_LIBRARY_PATH` to `lib` but libraries are in 
 Edit the module file on the cluster:
 
 ```bash
-nano /mnt/lustre/users/msovara/SoftwareBuilds/MPAS/modulefiles/mpas-lengau
+nano /apps/chpc/scripts/modules/earth/mpas-lengau
 ```
 
 Change this line:
@@ -27,8 +27,8 @@ Or manually add lib64:
 
 ```bash
 # After loading module, add lib64
-module load /mnt/lustre/users/msovara/SoftwareBuilds/MPAS/modulefiles/mpas-lengau
-export LD_LIBRARY_PATH=/mnt/lustre/users/msovara/SoftwareBuilds/MPAS/lib64:$LD_LIBRARY_PATH
+module load /apps/chpc/scripts/modules/earth/mpas-lengau
+export LD_LIBRARY_PATH=/home/apps/chpc/earth/lib64:$LD_LIBRARY_PATH
 ```
 
 ## Permanent Fix

@@ -14,13 +14,13 @@ This guide explains how to use MPAS after installation on Lengau cluster.
 ### Option 1: Module System
 
 ```bash
-module load /mnt/lustre/users/msovara/SoftwareBuilds/MPAS/modulefiles/mpas-lengau
+module load chpc/earth/mpas-lengau
 ```
 
 ### Option 2: Setup Script
 
 ```bash
-source /mnt/lustre/users/msovara/SoftwareBuilds/MPAS/setup_mpas_lengau.sh
+source /home/apps/chpc/earth/setup_mpas_lengau.sh
 ```
 
 ### Verify Installation
@@ -30,7 +30,7 @@ source /mnt/lustre/users/msovara/SoftwareBuilds/MPAS/setup_mpas_lengau.sh
 which mpas_atmosphere
 
 # Should output:
-# /mnt/lustre/users/msovara/SoftwareBuilds/MPAS/bin/mpas_atmosphere
+# /home/apps/chpc/earth/bin/mpas_atmosphere
 ```
 
 ## Running MPAS
@@ -79,7 +79,7 @@ Create a file `run_mpas.pbs`:
 
 # Load modules
 module load chpc/parallel_studio_xe/16.0.1/2016.1.150
-module load /mnt/lustre/users/msovara/SoftwareBuilds/MPAS/modulefiles/mpas-lengau
+module load chpc/earth/mpas-lengau
 
 # Set working directory
 cd $PBS_O_WORKDIR
@@ -101,7 +101,7 @@ qsub -I -l select=1:ncpus=4:mpiprocs=4 -l walltime=01:00:00 -q normal
 
 # Once on compute node, load environment and run
 module load chpc/parallel_studio_xe/16.0.1/2016.1.150
-module load /mnt/lustre/users/msovara/SoftwareBuilds/MPAS/modulefiles/mpas-lengau
+module load chpc/earth/mpas-lengau
 mpirun -np 4 mpas_atmosphere -n namelist.atmosphere -s streams.atmosphere
 ```
 
@@ -132,14 +132,14 @@ application called MPI_Abort(MPI_COMM_WORLD, 0) - process 0
 
 2. Find example files:
    ```bash
-   find /mnt/lustre/users/msovara/SoftwareBuilds/MPAS -name "namelist.atmosphere" -o -name "streams.atmosphere"
+   find /home/apps/chpc/earth -name "namelist.atmosphere" -o -name "streams.atmosphere"
    ```
 
 3. Copy example files from MPAS installation:
    ```bash
    # Example files are usually in:
-   cp /mnt/lustre/users/msovara/SoftwareBuilds/MPAS/share/MPAS/core_atmosphere/namelist.atmosphere .
-   cp /mnt/lustre/users/msovara/SoftwareBuilds/MPAS/share/MPAS/core_atmosphere/streams.atmosphere .
+   cp /home/apps/chpc/earth/share/MPAS/core_atmosphere/namelist.atmosphere .
+   cp /home/apps/chpc/earth/share/MPAS/core_atmosphere/streams.atmosphere .
    ```
 
 4. Or download from MPAS repository:
@@ -172,7 +172,7 @@ mpirun -np 1 mpas_atmosphere -n /full/path/to/namelist.atmosphere -s /full/path/
 module load chpc/parallel_studio_xe/16.0.1/2016.1.150
 
 # Then load MPAS
-module load /mnt/lustre/users/msovara/SoftwareBuilds/MPAS/modulefiles/mpas-lengau
+module load chpc/earth/mpas-lengau
 
 # Test MPI
 mpirun -np 1 hostname
@@ -189,7 +189,7 @@ mpirun -np 1 mpas_atmosphere --help
 echo $LD_LIBRARY_PATH | grep MPAS
 
 # If missing, add manually
-export LD_LIBRARY_PATH=/mnt/lustre/users/msovara/SoftwareBuilds/MPAS/lib64:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/home/apps/chpc/earth/lib64:$LD_LIBRARY_PATH
 ```
 
 #### Debugging Steps
@@ -226,12 +226,12 @@ mpas_atmosphere: command not found
 **Solution:**
 1. Load MPAS module:
    ```bash
-   module load /mnt/lustre/users/msovara/SoftwareBuilds/MPAS/modulefiles/mpas-lengau
+   module load chpc/earth/mpas-lengau
    ```
 
 2. Or source setup script:
    ```bash
-   source /mnt/lustre/users/msovara/SoftwareBuilds/MPAS/setup_mpas_lengau.sh
+   source /home/apps/chpc/earth/setup_mpas_lengau.sh
    ```
 
 3. Verify:
@@ -255,7 +255,7 @@ error while loading shared libraries: libmpas_framework.so: cannot open shared o
 
 3. Manually add if needed:
    ```bash
-   export LD_LIBRARY_PATH=/mnt/lustre/users/msovara/SoftwareBuilds/MPAS/lib64:$LD_LIBRARY_PATH
+   export LD_LIBRARY_PATH=/home/apps/chpc/earth/lib64:$LD_LIBRARY_PATH
    ```
 
 ### Issue: MPI Not Found
@@ -281,7 +281,7 @@ which mpirun
 ```bash
 # Load environment
 module load chpc/parallel_studio_xe/16.0.1/2016.1.150
-module load /mnt/lustre/users/msovara/SoftwareBuilds/MPAS/modulefiles/mpas-lengau
+module load chpc/earth/mpas-lengau
 
 # Test executable
 mpirun -np 1 mpas_atmosphere --help
@@ -312,7 +312,7 @@ qsub -I -l select=1:ncpus=4:mpiprocs=4 -l walltime=01:00:00
 
 # Load environment
 module load chpc/parallel_studio_xe/16.0.1/2016.1.150
-module load /mnt/lustre/users/msovara/SoftwareBuilds/MPAS/modulefiles/mpas-lengau
+module load chpc/earth/mpas-lengau
 
 # Run with verbose output
 mpirun -np 4 -verbose mpas_atmosphere -n namelist.atmosphere -s streams.atmosphere
@@ -350,7 +350,7 @@ After loading MPAS module:
 
 ## Getting Help
 
-- Check installation log: `/mnt/lustre/users/msovara/SoftwareBuilds/MPAS/install_log.txt`
+- Check installation log: `/home/apps/chpc/earth/install_log.txt`
 - See troubleshooting guide: `docs/TROUBLESHOOTING.md`
 - MPAS documentation: https://mpas-dev.github.io/
 - CHPC support: For cluster-specific issues

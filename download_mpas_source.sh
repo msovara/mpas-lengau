@@ -8,7 +8,7 @@
 set -e
 
 # Configuration
-BUILD_DIR="/mnt/lustre/users/msovara/SoftwareBuilds/MPAS/build"
+BUILD_DIR="/home/apps/chpc/earth/build"
 MPAS_VERSION="v8.3.1"  # Latest version as of 2025. Update to desired version if needed
 MPAS_SOURCE_URL="https://github.com/MPAS-Dev/MPAS-Model.git"
 

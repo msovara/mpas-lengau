@@ -17,16 +17,16 @@ This error occurs when MPAS fails during initialization. The error code `1734831
 
 **Check:**
 ```bash
-ldd /mnt/lustre/users/msovara/SoftwareBuilds/MPAS/bin/mpas_atmosphere | grep "not found"
+ldd /home/apps/chpc/earth/bin/mpas_atmosphere | grep "not found"
 ```
 
 **Fix:**
 ```bash
 # Ensure lib64 is in LD_LIBRARY_PATH
-export LD_LIBRARY_PATH=/mnt/lustre/users/msovara/SoftwareBuilds/MPAS/lib64:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/home/apps/chpc/earth/lib64:$LD_LIBRARY_PATH
 
 # Verify libraries exist
-ls -la /mnt/lustre/users/msovara/SoftwareBuilds/MPAS/lib64/*.so
+ls -la /home/apps/chpc/earth/lib64/*.so
 ```
 
 ### 2. Library Path Issues
@@ -39,7 +39,7 @@ echo $LD_LIBRARY_PATH | grep lib64
 **Fix:**
 ```bash
 # Update module file to include lib64
-nano /mnt/lustre/users/msovara/SoftwareBuilds/MPAS/modulefiles/mpas-lengau
+nano /home/apps/chpc/earth/modulefiles/mpas-lengau
 
 # Add this line:
 prepend-path LD_LIBRARY_PATH ${mpas_root}/lib64
@@ -49,7 +49,7 @@ prepend-path LD_LIBRARY_PATH ${mpas_root}/lib64
 
 **Check for missing Intel runtime libraries:**
 ```bash
-ldd /mnt/lustre/users/msovara/SoftwareBuilds/MPAS/bin/mpas_atmosphere | grep -E 'libimf|libintlc|libsvml|libifcore'
+ldd /home/apps/chpc/earth/bin/mpas_atmosphere | grep -E 'libimf|libintlc|libsvml|libifcore'
 ```
 
 **Fix:**
@@ -63,7 +63,7 @@ export LD_LIBRARY_PATH=/apps/compilers/intel/parallel_studio_xe_2016/compilers_a
 Sometimes the installed executable has issues. Try running directly from build:
 
 ```bash
-cd /mnt/lustre/users/msovara/SoftwareBuilds/MPAS/build/MPAS-Model/build_cmake
+cd /home/apps/chpc/earth/build/MPAS-Model/build_cmake
 export LD_LIBRARY_PATH=./lib:$LD_LIBRARY_PATH
 mpirun -np 1 ./bin/mpas_atmosphere --help
 ```
@@ -73,7 +73,7 @@ mpirun -np 1 ./bin/mpas_atmosphere --help
 The executable should be small (13KB) as it's a wrapper that loads libmpas_atmosphere.so:
 
 ```bash
-ls -lh /mnt/lustre/users/msovara/SoftwareBuilds/MPAS/bin/mpas_atmosphere
+ls -lh /home/apps/chpc/earth/bin/mpas_atmosphere
 # Should be around 13KB
 ```
 
@@ -83,7 +83,7 @@ If it's much larger, there might be an issue with the installation.
 
 ```bash
 # Check if library can be loaded
-ldd /mnt/lustre/users/msovara/SoftwareBuilds/MPAS/lib64/libmpas_atmosphere.so | head -20
+ldd /home/apps/chpc/earth/lib64/libmpas_atmosphere.so | head -20
 ```
 
 ### 7. Run with Debug Output
@@ -116,11 +116,11 @@ Run this on the cluster:
 module load chpc/parallel_studio_xe/16.0.1/2016.1.150
 
 # Load MPAS
-module load /mnt/lustre/users/msovara/SoftwareBuilds/MPAS/modulefiles/mpas-lengau
+module load chpc/earth/mpas-lengau
 
 # Add all necessary paths
-export LD_LIBRARY_PATH=/mnt/lustre/users/msovara/SoftwareBuilds/MPAS/lib64:$LD_LIBRARY_PATH
-export LD_LIBRARY_PATH=/mnt/lustre/users/msovara/SoftwareBuilds/MPAS/lib:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/home/apps/chpc/earth/lib64:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/home/apps/chpc/earth/lib:$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=/apps/compilers/intel/parallel_studio_xe_2016/compilers_and_libraries/linux/lib/intel64:$LD_LIBRARY_PATH
 
 # Verify

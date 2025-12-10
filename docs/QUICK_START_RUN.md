@@ -14,7 +14,7 @@ This guide helps you run your first MPAS simulation after installation.
 
 ```bash
 # Load MPAS module
-module load /mnt/lustre/users/msovara/SoftwareBuilds/MPAS/modulefiles/mpas-lengau
+module load chpc/earth/mpas-lengau
 
 # Find example files
 find $MPAS_ROOT -name "namelist.atmosphere" -o -name "streams.atmosphere"
@@ -61,7 +61,7 @@ head -20 streams.atmosphere
 module load chpc/parallel_studio_xe/16.0.1/2016.1.150
 
 # Load MPAS
-module load /mnt/lustre/users/msovara/SoftwareBuilds/MPAS/modulefiles/mpas-lengau
+module load chpc/earth/mpas-lengau
 
 # Verify
 which mpas_atmosphere
@@ -103,7 +103,7 @@ Create `run_mpas.pbs`:
 
 # Load modules
 module load chpc/parallel_studio_xe/16.0.1/2016.1.150
-module load /mnt/lustre/users/msovara/SoftwareBuilds/MPAS/modulefiles/mpas-lengau
+module load chpc/earth/mpas-lengau
 
 # Set working directory (where namelist/streams are)
 cd $PBS_O_WORKDIR
@@ -171,7 +171,7 @@ tail -f mpas.out
 echo $LD_LIBRARY_PATH
 
 # Add if missing
-export LD_LIBRARY_PATH=/mnt/lustre/users/msovara/SoftwareBuilds/MPAS/lib64:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/home/apps/chpc/earth/lib64:$LD_LIBRARY_PATH
 ```
 
 ## Next Steps

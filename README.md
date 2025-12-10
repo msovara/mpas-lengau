@@ -109,13 +109,13 @@ cd /mnt/lustre/users/msovara/SoftwareBuilds
 
 ```bash
 # Load MPAS module
-module load /mnt/lustre/users/msovara/SoftwareBuilds/MPAS/modulefiles/mpas-lengau
+module load chpc/earth/mpas-lengau
 
 # Or source setup script
-source /mnt/lustre/users/msovara/SoftwareBuilds/MPAS/setup_mpas_lengau.sh
+source /home/apps/chpc/earth/setup_mpas_lengau.sh
 
 # Test executable
-/mnt/lustre/users/msovara/SoftwareBuilds/MPAS/bin/mpas_atmosphere --help
+/home/apps/chpc/earth/bin/mpas_atmosphere --help
 ```
 
 ## 📖 Installation Guide
@@ -152,7 +152,7 @@ cd /mnt/lustre/users/msovara/SoftwareBuilds
 **Expected Output:**
 ```
 === MPAS Source Download Script ===
-Build directory: /mnt/lustre/users/msovara/SoftwareBuilds/MPAS/build
+Build directory: /home/apps/chpc/earth/build
 MPAS version: v8.3.1
 
 Cloning MPAS-Model...
@@ -192,7 +192,7 @@ cd /mnt/lustre/users/msovara/SoftwareBuilds
 Edit `install_mpas_lengau.sh`:
 
 ```bash
-INSTALL_DIR="/mnt/lustre/users/msovara/SoftwareBuilds/MPAS"
+INSTALL_DIR="/home/apps/chpc/earth"
 BUILD_DIR="${INSTALL_DIR}/build"
 ```
 
@@ -219,12 +219,12 @@ The script automatically detects and uses:
 
 **Error:**
 ```
-✗ MPAS source code not found at /mnt/lustre/users/msovara/SoftwareBuilds/MPAS/build/MPAS-Model
+✗ MPAS source code not found at /home/apps/chpc/earth/build/MPAS-Model
 ```
 
 **Solution:**
 - Ensure `download_mpas_source.sh` was run on DTN node
-- Verify source code exists: `ls -la /mnt/lustre/users/msovara/SoftwareBuilds/MPAS/build/MPAS-Model`
+- Verify source code exists: `ls -la /home/apps/chpc/earth/build/MPAS-Model`
 
 #### 2. PnetCDF Not Found
 
@@ -294,12 +294,12 @@ cat /mnt/lustre/users/msovara/SoftwareBuilds/MPAS/install_log.txt
 
 **Option 1: Module System**
 ```bash
-module load /mnt/lustre/users/msovara/SoftwareBuilds/MPAS/modulefiles/mpas-lengau
+module load chpc/earth/mpas-lengau
 ```
 
 **Option 2: Setup Script**
 ```bash
-source /mnt/lustre/users/msovara/SoftwareBuilds/MPAS/setup_mpas_lengau.sh
+source /home/apps/chpc/earth/setup_mpas_lengau.sh
 ```
 
 ### Running MPAS

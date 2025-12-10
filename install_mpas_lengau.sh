@@ -8,8 +8,9 @@
 set -e  # Exit on any error
 
 # Configuration
-INSTALL_DIR="/mnt/lustre/users/msovara/SoftwareBuilds/MPAS"
+INSTALL_DIR="/home/apps/chpc/earth"
 BUILD_DIR="${INSTALL_DIR}/build"
+MODULE_DIR="/apps/chpc/scripts/modules/earth"
 MPAS_VERSION="v8.3.1"  # Latest version as of 2025. Update to desired version if needed
 MPAS_SOURCE_URL="https://github.com/MPAS-Dev/MPAS-Model.git"
 
@@ -37,7 +38,7 @@ if [ ! -d "${BUILD_DIR}/MPAS-Model" ]; then
     echo ""
     echo "To download source code:"
     echo "1. SSH to DTN node: ssh msovara@dtn.chpc.ac.za"
-    echo "2. Run: cd /mnt/lustre/users/msovara/SoftwareBuilds"
+    echo "2. Run: cd /home/apps/chpc/earth"
     echo "3. Run: ./download_mpas_source.sh"
     echo "4. Then return to compute node and run this installation script"
     echo ""
@@ -934,8 +935,8 @@ cp -r * ${INSTALL_DIR}/share/mpas/ 2>/dev/null || echo "Some files could not be 
 
 # Create Lengau-specific module file
 echo "Creating Lengau-specific module file..."
-mkdir -p ${INSTALL_DIR}/modulefiles
-cat > ${INSTALL_DIR}/modulefiles/mpas-lengau << EOF
+mkdir -p ${MODULE_DIR}
+cat > ${MODULE_DIR}/mpas-lengau << EOF
 #%Module1.0
 ##
 ## MPAS modulefile for Lengau Cluster
@@ -954,6 +955,7 @@ set version "${MPAS_VERSION}"
 set mpas_root "${INSTALL_DIR}"
 
 prepend-path PATH \${mpas_root}/bin
+prepend-path LD_LIBRARY_PATH \${mpas_root}/lib64
 prepend-path LD_LIBRARY_PATH \${mpas_root}/lib
 prepend-path MANPATH \${mpas_root}/share/mpas
 
@@ -1039,14 +1041,14 @@ echo "MPAS has been installed to: ${INSTALL_DIR}"
 echo "Compiled with: Intel Parallel Studio XE 2018.2.046"
 echo ""
 echo "To use MPAS:"
-echo "1. Load the Lengau module: module load ${INSTALL_DIR}/modulefiles/mpas-lengau"
+echo "1. Load the Lengau module: module load chpc/earth/mpas-lengau"
 echo "2. Or source the setup script: source ${INSTALL_DIR}/setup_mpas_lengau.sh"
-echo "3. Run MPAS: atmosphere_model or init_atmosphere_model"
+echo "3. Run MPAS: mpirun -np 1 mpas_atmosphere --help"
 echo ""
 echo "Installation files:"
 echo "- Executables: ${INSTALL_DIR}/bin/"
 echo "- Source files: ${INSTALL_DIR}/share/mpas/"
-echo "- Module file: ${INSTALL_DIR}/modulefiles/mpas-lengau"
+echo "- Module file: ${MODULE_DIR}/mpas-lengau"
 echo "- Setup script: ${INSTALL_DIR}/setup_mpas_lengau.sh"
 echo "- Installation log: ${INSTALL_DIR}/install_log.txt"
 echo ""

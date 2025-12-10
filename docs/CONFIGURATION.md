@@ -9,7 +9,7 @@ This guide explains how to configure and customize the MPAS installation for you
 The installation uses these default paths:
 
 ```bash
-INSTALL_DIR="/mnt/lustre/users/msovara/SoftwareBuilds/MPAS"
+INSTALL_DIR="/home/apps/chpc/earth"
 BUILD_DIR="${INSTALL_DIR}/build"
 ```
 
@@ -210,7 +210,7 @@ Default: `${INSTALL_DIR}/modulefiles/mpas-lengau`
 After installation, edit:
 
 ```bash
-nano /mnt/lustre/users/msovara/SoftwareBuilds/MPAS/modulefiles/mpas-lengau
+nano /apps/chpc/scripts/modules/earth/mpas-lengau
 ```
 
 Add/remove module dependencies:
@@ -239,7 +239,7 @@ make -j4  # Use 4 cores instead of all
 
 ```bash
 # Load environment
-module load /mnt/lustre/users/msovara/SoftwareBuilds/MPAS/modulefiles/mpas-lengau
+module load /apps/chpc/scripts/modules/earth/mpas-lengau
 
 # Verify executable
 which mpas_atmosphere
@@ -313,7 +313,7 @@ Create `config.sh`:
 
 ```bash
 #!/bin/bash
-export INSTALL_DIR="/mnt/lustre/users/msovara/SoftwareBuilds/MPAS"
+export INSTALL_DIR="/home/apps/chpc/earth"
 export MPAS_VERSION="v8.3.1"
 export CMAKE_BUILD_TYPE="Release"
 # ... other settings
