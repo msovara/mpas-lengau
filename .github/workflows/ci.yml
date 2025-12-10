@@ -1,0 +1,42 @@
+name: Repository CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  lint:
+    name: Lint Shell Scripts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Install ShellCheck
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y shellcheck
+      
+      - name: Lint Shell Scripts
+        run: |
+          shellcheck install_mpas_lengau.sh || true
+          shellcheck download_mpas_source.sh || true
+      
+      - name: Check Markdown
+        uses: DavidAnson/markdownlint-cli-action@v9
+        with:
+          files: '*.md'
+
+  docs:
+    name: Documentation Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Check README exists
+        run: test -f README.md
+        
+      - name: Check LICENSE exists
+        run: test -f LICENSE
+

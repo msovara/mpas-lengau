@@ -1,0 +1,65 @@
+# Build directories
+build/
+build_*/
+*.o
+*.mod
+*.so
+*.a
+
+# Installation directories (if in repo)
+MPAS/
+SoftwareBuilds/
+
+# Log files
+*.log
+install_log.txt
+*.out
+*.err
+
+# Temporary files
+*.tmp
+*.bak
+*.backup
+*~
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Cluster-specific
+*.pbs
+*.qsub
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+
+# Git submodules (tracked separately)
+src/external/esmf/
+src/core_atmosphere/physics/physics_mmm/
+src/core_atmosphere/physics/physics_noaa/UGWP/
+
+# MPAS-Data (large repository, should be downloaded separately)
+MPAS-Data/
+
+# Test outputs
+test_outputs/
+*.nc
+*.dat
+
