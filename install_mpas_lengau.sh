@@ -370,43 +370,31 @@ if [ -f "CMakeLists.txt" ]; then
     echo ""
     
     # Pre-populate MPAS-Data for CMake FetchContent
-    # CMake FetchContent is problematic, so we'll patch CMakeLists.txt to use pre-cloned data
+    # Use CMake's FETCHCONTENT_SOURCE_DIR to point to pre-cloned directory
     if [ -d "${BUILD_DIR}/MPAS-Data" ]; then
-        echo "Pre-populating MPAS-Data for CMake..."
-        echo "Patching CMakeLists.txt to use pre-cloned MPAS-Data..."
-        
-        # Backup CMakeLists.txt if not already backed up
-        if [ ! -f "src/core_atmosphere/CMakeLists.txt.backup" ]; then
-            cp src/core_atmosphere/CMakeLists.txt src/core_atmosphere/CMakeLists.txt.backup
-        fi
-        
-        # Patch to skip FetchContent and use pre-cloned directory
-        # Replace FetchContent_Populate with direct path setting
-        CMAKELISTS_FILE="src/core_atmosphere/CMakeLists.txt"
-        # Use sed to replace the FetchContent_Populate line
-        sed -i '/FetchContent_Populate(mpas_data)/c\
-# FetchContent_Populate(mpas_data) - PATCHED: Using pre-cloned MPAS-Data\
-set(mpas_data_SOURCE_DIR "'"${BUILD_DIR}"'/MPAS-Data")\
-if(NOT EXISTS "${mpas_data_SOURCE_DIR}")\
-    message(FATAL_ERROR "MPAS-Data not found at ${mpas_data_SOURCE_DIR}. Please run download_mpas_source.sh on DTN node.")\
-endif()\
-message(STATUS "Using pre-cloned MPAS-Data at: ${mpas_data_SOURCE_DIR}")' "${CMAKELISTS_FILE}" || {
-            echo "⚠ Could not patch CMakeLists.txt with sed, trying awk..."
-            # Alternative: use awk
-            awk -v mpas_data_path="${BUILD_DIR}/MPAS-Data" \
-                '/FetchContent_Populate\(mpas_data\)/ {print "# " $0 " - PATCHED: Using pre-cloned MPAS-Data"; print "set(mpas_data_SOURCE_DIR \"" mpas_data_path "\")"; print "if(NOT EXISTS \"${mpas_data_SOURCE_DIR}\")"; print "    message(FATAL_ERROR \"MPAS-Data not found\")"; print "endif()"; print "message(STATUS \"Using pre-cloned MPAS-Data at: ${mpas_data_SOURCE_DIR}\")"; next}1' \
-                "${CMAKELISTS_FILE}.backup" > "${CMAKELISTS_FILE}" || {
-                echo "⚠ Alternative patch also failed, restoring backup"
-                cp "${CMAKELISTS_FILE}.backup" "${CMAKELISTS_FILE}"
-            }
-        }
-        
         echo "✓ MPAS-Data found at: ${BUILD_DIR}/MPAS-Data"
-        echo "  Patched CMakeLists.txt to use pre-cloned data"
+        echo "  Will use pre-cloned MPAS-Data via FETCHCONTENT_SOURCE_DIR"
+        # Export for CMake FetchContent to use
+        export FETCHCONTENT_SOURCE_DIR_MPAS_DATA="${BUILD_DIR}/MPAS-Data"
+        # Also create symlink in build_cmake/_deps for CMake to find it
+        mkdir -p build_cmake/_deps
+        if [ ! -e "build_cmake/_deps/mpas_data-src" ]; then
+            ln -sf "${BUILD_DIR}/MPAS-Data" "build_cmake/_deps/mpas_data-src" 2>/dev/null || {
+                echo "⚠ Could not create symlink, but FETCHCONTENT_SOURCE_DIR should work"
+            }
+        fi
     else
-        echo "⚠ MPAS-Data not found at ${BUILD_DIR}/MPAS-Data"
-        echo "  CMake will try to clone it (requires internet on compute node)"
-        echo "  To fix: Run download_mpas_source.sh on DTN node first"
+        echo "✗ ERROR: MPAS-Data not found at ${BUILD_DIR}/MPAS-Data"
+        echo ""
+        echo "MPAS-Data is required but compute nodes have no internet access."
+        echo "You must download it on the DTN node first:"
+        echo ""
+        echo "1. SSH to DTN node: ssh msovara@dtn.chpc.ac.za"
+        echo "2. Run: cd /home/apps/chpc/earth/MPAS-8.3.1"
+        echo "3. Run: ./download_mpas_source.sh"
+        echo "4. Then return to compute node and run this installation script again"
+        echo ""
+        exit 1
     fi
     
     # Create build directory
