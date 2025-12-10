@@ -7,16 +7,20 @@ Comprehensive installation guide and scripts for building and installing **MPAS 
 
 ## 📋 Table of Contents
 
-- [Overview](#overview)
-- [Prerequisites](#prerequisites)
-- [Quick Start](#quick-start)
-- [Installation Guide](#installation-guide)
-- [Configuration](#configuration)
-- [Troubleshooting](#troubleshooting)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
-- [Acknowledgments](#acknowledgments)
+- [Overview](#-overview)
+- [Prerequisites](#-prerequisites)
+- [Quick Start](#-quick-start)
+- [Installation Guide](#-installation-guide)
+- [Configuration](#-configuration)
+- [Troubleshooting](#-troubleshooting)
+- [Usage](#-usage)
+- [Repository Structure](#-repository-structure)
+- [Contributing](#-contributing)
+- [License](#-license)
+- [Acknowledgments](#-acknowledgments)
+- [Contact](#-contact)
+- [References](#-references)
+- [Version History](#-version-history)
 
 ## 🎯 Overview
 
