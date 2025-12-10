@@ -1,0 +1,80 @@
+&nhyd_model
+    ! Time integration settings
+    config_time_integration = 'split_explicit'
+    config_dt = 300.0
+    config_start_time = '2025-01-01_00:00:00'
+    config_run_duration = '0000-00-01_00:00:00'
+    config_split_dynamics_transport = .true.
+    config_split_dynamics_transport_subcycle = 3
+    config_horiz_mixing = '2d_smagorinsky'
+    config_len_disp = 120000.0
+    config_mpas_cam_coef = 0.15
+    config_rayleigh_damp_u = .false.
+    config_rayleigh_damp_v = .false.
+/
+
+&data_sources
+    ! Geographic data paths
+    config_geog_data_path = '/path/to/geog/data/'
+    config_landuse_data = 'MODIFIED_IGBP_MODIS_NOAH'
+    config_topo_data = 'GMTED2010'
+    config_vegfrac_data = 'MODIS'
+    config_albedo_data = 'MODIS'
+    config_maxsnowalbedo_data = 'MODIS'
+    config_supersample_factor = 3
+/
+
+&preproc_stages
+    ! Preprocessing options
+    config_static_interp = .true.
+    config_native_gwd_static = .true.
+    config_vertical_grid = .false.
+    config_met_interp = .false.
+    config_input_sst = .false.
+    config_frac_seaice = .false.
+/
+
+&io
+    ! I/O configuration
+    config_pio_num_iotasks = 0
+    config_pio_stride = 1
+/
+
+&decomposition
+    ! Domain decomposition
+    config_block_decomp_file_prefix = 'x1.10242.graph.info.part.'
+/
+
+&restart
+    ! Restart configuration
+    config_do_restart = .false.
+    config_start_time = '2025-01-01_00:00:00'
+/
+
+&physics
+    ! Physics suite
+    config_physics_suite = 'mesoscale_reference'
+    
+    ! Microphysics
+    config_microp_scheme = 'mp_thompson'
+    
+    ! Convection
+    config_convection_scheme = 'cu_tiedtke'
+    
+    ! Land surface
+    config_lsm_scheme = 'noah'
+    
+    ! Planetary boundary layer
+    config_pbl_scheme = 'bl_ysu'
+    
+    ! Radiation
+    config_radt_cld_lw = 30
+    config_radt_cld_sw = 30
+/
+
+&diagnostics
+    ! Diagnostic output
+    config_AM_globalStats_enable = .true.
+    config_AM_globalStats_compute_interval = '00:10:00'
+/
+

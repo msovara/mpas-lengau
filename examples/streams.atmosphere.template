@@ -1,0 +1,95 @@
+<streams>
+    <!-- Input stream for initial conditions -->
+    <immutable_stream name="input"
+                      type="input"
+                      filename_template="input/init.nc"
+                      input_interval="initial_only"/>
+
+    <!-- Input stream for grid -->
+    <immutable_stream name="grid"
+                      type="input"
+                      filename_template="input/x1.10242.grid.nc"
+                      input_interval="initial_only"/>
+
+    <!-- Input stream for static fields -->
+    <immutable_stream name="static"
+                      type="input"
+                      filename_template="input/x1.10242.static.nc"
+                      input_interval="initial_only"/>
+
+    <!-- Output stream for history files -->
+    <stream name="history"
+            type="output"
+            filename_template="output/history/history.$Y-$M-$D_$h.$m.$s.nc"
+            filename_interval="none"
+            output_interval="00:06:00"
+            clobber_mode="overwrite">
+        
+        <!-- Time -->
+        <var name="xtime"/>
+        
+        <!-- Basic fields -->
+        <var name="pressure"/>
+        <var name="temperature"/>
+        <var name="uReconstructZonal"/>
+        <var name="uReconstructMeridional"/>
+        <var name="w"/>
+        
+        <!-- Moisture fields -->
+        <var name="qv"/>
+        <var name="qc"/>
+        <var name="qr"/>
+        <var name="qi"/>
+        <var name="qs"/>
+        <var name="qg"/>
+        
+        <!-- Surface fields -->
+        <var name="surface_pressure"/>
+        <var name="precipitationRate"/>
+        <var name="surfacePrecipitationRate"/>
+    </stream>
+
+    <!-- Output stream for restart files -->
+    <stream name="restart"
+            type="output"
+            filename_template="output/restart/restart.$Y-$M-$D_$h.$m.$s.nc"
+            filename_interval="none"
+            output_interval="00:06:00"
+            clobber_mode="overwrite">
+        
+        <!-- Time -->
+        <var name="xtime"/>
+        
+        <!-- State variables -->
+        <var name="pressure"/>
+        <var name="temperature"/>
+        <var name="uReconstructZonal"/>
+        <var name="uReconstructMeridional"/>
+        <var name="w"/>
+        
+        <!-- Moisture -->
+        <var name="qv"/>
+        <var name="qc"/>
+        <var name="qr"/>
+        <var name="qi"/>
+        <var name="qs"/>
+        <var name="qg"/>
+    </stream>
+
+    <!-- Output stream for diagnostics -->
+    <stream name="diagnostics"
+            type="output"
+            filename_template="output/diagnostics/diag.$Y-$M-$D_$h.$m.$s.nc"
+            filename_interval="none"
+            output_interval="00:01:00"
+            clobber_mode="overwrite">
+        
+        <var name="xtime"/>
+        <var name="precipitationRate"/>
+        <var name="surfacePrecipitationRate"/>
+        <var name="accumulatedPrecipitation"/>
+        <var name="convectivePrecipitation"/>
+        <var name="largeScalePrecipitation"/>
+    </stream>
+</streams>
+

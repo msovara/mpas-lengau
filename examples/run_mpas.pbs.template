@@ -1,0 +1,45 @@
+#!/bin/bash
+#PBS -N mpas_simulation
+#PBS -l select=2:ncpus=24:mpiprocs=24
+#PBS -l walltime=04:00:00
+#PBS -q normal
+#PBS -o logs/mpas.out
+#PBS -e logs/mpas.err
+
+# Load required modules
+module load chpc/parallel_studio_xe/16.0.1/2016.1.150
+module load chpc/earth/mpas-lengau
+
+# Set working directory (where namelist and streams files are)
+cd $PBS_O_WORKDIR
+
+# Create output directories if they don't exist
+mkdir -p output/{history,restart,diagnostics}
+mkdir -p logs
+
+# Print environment information
+echo "=== MPAS Simulation ==="
+echo "Job ID: $PBS_JOBID"
+echo "Working directory: $PBS_O_WORKDIR"
+echo "Number of processes: 48"
+echo "Start time: $(date)"
+echo ""
+
+# Run MPAS
+# Adjust -np based on: select * ncpus
+# Example: select=2:ncpus=24 -> 2*24 = 48 processes
+mpirun -np 48 mpas_atmosphere -n namelist.atmosphere -s streams.atmosphere
+
+# Check exit status
+if [ $? -eq 0 ]; then
+    echo ""
+    echo "=== Simulation completed successfully ==="
+    echo "End time: $(date)"
+else
+    echo ""
+    echo "=== Simulation failed ==="
+    echo "End time: $(date)"
+    echo "Check logs/mpas.err for details"
+    exit 1
+fi
+
