@@ -9,7 +9,7 @@ This guide explains how to configure and customize the MPAS installation for you
 The installation uses these default paths:
 
 ```bash
-INSTALL_DIR="/home/apps/chpc/earth"
+INSTALL_DIR="/home/apps/chpc/earth/MPAS-8.3.1"
 BUILD_DIR="${INSTALL_DIR}/build"
 ```
 
@@ -313,7 +313,7 @@ Create `config.sh`:
 
 ```bash
 #!/bin/bash
-export INSTALL_DIR="/home/apps/chpc/earth"
+export INSTALL_DIR="/home/apps/chpc/earth/MPAS-8.3.1"
 export MPAS_VERSION="v8.3.1"
 export CMAKE_BUILD_TYPE="Release"
 # ... other settings
