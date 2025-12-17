@@ -400,7 +400,7 @@ See [CHANGELOG.md](CHANGELOG.md) for detailed version history.
 
 **Current Version**: 1.0.0  
 **MPAS Version**: v8.3.1  
-**Last Updated**: December 2024
+**Last Updated**: December 2025
 
 ---
 
